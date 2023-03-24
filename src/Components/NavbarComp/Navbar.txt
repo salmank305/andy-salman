@@ -1,0 +1,244 @@
+// import React from "react";
+// import { NavLink } from "react-router-dom";
+
+// export default function Navbar() {
+//   return (
+//       <div className="menuIcon">
+//         <ul>
+//           <li>
+//             <NavLink to="/">HOME</NavLink>
+//           </li>
+//           <li>
+//             <NavLink to="/aboutus">ABOUT US</NavLink>
+//           </li>
+//           <li>
+//             <NavLink to="/programs">PROGRAMS</NavLink>
+//           </li>
+//           <li>
+//             <NavLink to="/courses">COURSES</NavLink>
+//           </li>
+//           <li>
+//             <NavLink to="/contact">CONTACT</NavLink>
+//           </li>
+//           <li>
+//             <NavLink to="/login">LOGIN</NavLink>
+//           </li>
+//         </ul>
+//       </div>
+
+//   );
+// }
+
+import React from "react";
+import { NavLink } from "react-router-dom";
+import "./Navbar.css";
+export default function Navbar() {
+  return (
+    // <nav className="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5">
+    //   <div className="container-fluid">
+    //     <NavLink className="navbar-brand" to="/">
+    //       My Website
+    //     </NavLink>
+    //     <button
+    //       className="navbar-toggler"
+    //       type="button"
+    //       data-bs-toggle="collapse"
+    //       data-bs-target="#navbarNav"
+    //       aria-controls="navbarNav"
+    //       aria-expanded="false"
+    //       aria-label="Toggle navigation"
+    //     >
+    //       <span className="navbar-toggler-icon"></span>
+    //     </button>
+    //     <div className="collapse navbar-collapse" id="navbarNav">
+    //       <ul className="navbar-nav">
+    //         <li className="nav-item">
+    //           <NavLink className="nav-link" activeClassName="active" exact to="/">
+    //             Home
+    //           </NavLink>
+    //         </li>
+    //         <li className="nav-item">
+    //           <NavLink className="nav-link" activeClassName="active" to="/aboutus">
+    //             About Us
+    //           </NavLink>
+    //         </li>
+    //         <li className="nav-item">
+    //           <NavLink className="nav-link" activeClassName="active" to="/programs">
+    //             Programs
+    //           </NavLink>
+    //         </li>
+    //         <li className="nav-item">
+    //           <NavLink className="nav-link" activeClassName="active" to="/courses">
+    //             Courses
+    //           </NavLink>
+    //         </li>
+    //         <li className="nav-item">
+    //           <NavLink className="nav-link" activeClassName="active" to="/contact">
+    //             Contact
+    //           </NavLink>
+    //         </li>
+    //         <li className="nav-item">
+    //           <NavLink className="nav-link" activeClassName="active" to="/login">
+    //             Login
+    //           </NavLink>
+    //         </li>
+    //       </ul>
+    //     </div>
+    //   </div>
+    // </nav>
+
+
+
+
+
+
+
+
+
+
+
+    import React, { useState } from "react";
+
+import "./Contact.css";
+export const Contact = () => {
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+
+  let name, value;
+  const postUserData = (event) => {
+    name = event.target.name;
+    value = event.target.value;
+
+    setUserData({ ...userData, [name]: value });
+  };
+
+  // connect with firebase
+  const submitData = async (event) => {
+    event.preventDefault();
+    const { firstName, lastName, phone, email, address, message } = userData;
+
+    if (firstName && lastName && phone && email && address && message) {
+      const res = fetch(
+        "https://andyproject-48f96-default-rtdb.firebaseio.com/userDataRecords.json",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            phone,
+            email,
+            message,
+          }),
+        }
+      );
+
+      if (res) {
+        setUserData({
+          firstName: "",
+          lastName: "",
+          phone: "",
+          email: "",
+          message: "",
+        });
+        alert("Data Stored");
+      } else {
+        alert("plz fill the data");
+      }
+    } else {
+      alert("plz fill the data");
+    }
+  };
+
+  return (
+    <>
+      {/* right side contact form  */}
+      <div
+        className=" contactus-section d-flex justify-content-center align-items-center"
+        style={{ height: "100vh" }}
+      >
+        <form method="POST ">
+          <div className="row ">
+            <div className="col-12 col-lg-6 contact-input-feild">
+              <input
+                type="text"
+                name="firstName"
+                id=""
+                className="form-control"
+                placeholder="First Name"
+                value={userData.firstName}
+                onChange={postUserData}
+
+              />
+            </div>
+            <div className="col-12 col-lg-6 contact-input-feild ">
+              <input
+                type="text"
+                name="lastName"
+                id=""
+                className="form-control"
+                placeholder="Last Name"
+                value={userData.lastName}
+                onChange={postUserData}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-12 col-lg-6 contact-input-feild">
+              <input
+                type="text"
+                name="phone"
+                id=""
+                className="form-control"
+                placeholder="Phone Number "
+                value={userData.phone}
+                onChange={postUserData}
+              />
+            </div>
+            <div className="col-12 col-lg-6 contact-input-feild">
+              <input
+                type="text"
+                name="email"
+                id=""
+                className="form-control"
+                placeholder="Email ID"
+                value={userData.email}
+                onChange={postUserData}
+              />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12 ">
+              <input
+                type="text"
+                name="message"
+                id=""
+                className="form-control"
+                placeholder="Enter Your Message"
+                value={userData.message}
+                onChange={postUserData}
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="btn btn-style w-100"
+            onClick={submitData}
+          >
+            Submit
+          </button>
+          
+        </form>
+      </div>
+    </>
+  );
+};

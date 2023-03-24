@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.contactus-section {
+  background-image: url("./contact-bg.jpg");
+  flex-direction: column;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #172238;
+  padding-bottom: 120px;
+}
+
+#myform {
+  padding: .25rem 15rem;
+  padding-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  
+}
+.btn {
+  color: #eaefed;
+  background-color: #e69412;
+}
+.btn:hover {
+  color: #eaefed;
+  background-color: #e69412;
+}
+
+.touch {
+  display: flex;
+  color: #eaefed;
+  border: 1px solid rgb(81, 59, 63);
+  padding: 15px 25px 15px 25px;
+  font-size: large;
+  letter-spacing: 1px;
+  flex-direction: column;
+  margin-top: 5rem;
+}
